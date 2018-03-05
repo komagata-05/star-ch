@@ -6370,7 +6370,9 @@ class StarchCheck extends TS_Check {
     function checkCancelMemberInternettvAfterOneMonthForCPPlan($member)
     {
         // CPのプランIDであれば課金開始日から一か月経っているかチェック
-        $endMonth = date("Y-m-01 00:00:00",strtotime($member->regist_complete_date."+1 month"));
+        $date = date_create($member->regist_complete_date);
+        $date_format = date_format($date, 'Y-m-01');
+        $endMonth = date("Y-m-01 00:00:00",strtotime($date_format."+1 month"));
         $now = date("Y-m-d H:i:s");
 
         if(strtotime($endMonth) > strtotime($now))
