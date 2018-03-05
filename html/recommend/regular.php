@@ -52,7 +52,7 @@ foreach ($regulartitleList as $key => $item) {
         $timetableDAO = new TimetableDAO;
         $timetable = $timetableDAO->getTimetableById($tid);
 
-        if(strtotime($timetable->broadcast_date) >= strtotime(date('Y-m-d'))){
+        if(strtotime($timetable->broadcast_date) >= $date){
             $openChkArray[$item['special_id']] = 1;
         }
     }
