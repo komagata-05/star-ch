@@ -1072,6 +1072,8 @@ class StarchCheck extends TS_Check {
 			// 名異常
 			} else if ($result == $hikariAPI->RT_NG_MEI) {
 				$this->addErrorMessage('name','ご契約者氏名（名）が違います。');
+			} else if ($result == $hikariAPI->API_NG) {
+				$this->addErrorMessage($data["service_error"],'現在メンテナンス中です。しばらく経ってから再度お試しください。');
 			}
 			return false;
 		}
