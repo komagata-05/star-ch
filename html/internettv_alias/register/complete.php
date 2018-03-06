@@ -1,4 +1,4 @@
-﻿﻿<?php
+﻿﻿﻿<?php
 require_once('../../php_path.php');
 require_once('../../init.php');
 require_once("starchcheck.php");
@@ -107,7 +107,7 @@ try {
     // 仮登録会員
     if ($member->status == 9) {
         // 本会員登録処理
-        $ret = $memberTran->updateCompleteMemberItv($form, 'itv', $member);
+        $ret = $memberTran->updateCompleteMemberItv($form, 'set_env', $member);
         if (!$ret) {
             show_error_code_itv($ERROR_CODE_ITV['NOT_INSERT']);
             exit();
@@ -160,9 +160,14 @@ catch (Exception $e)
     exit();
 }
 
-
 // ログイン
 $_SESSION["member_id"] = $member->member_id;
+
+/*
+ * ITVトップ用にSTARCHSESSID COOKIEをデフォルト有効期限0として保存（2018.02）
+ */
+setcookie(session_name(), session_id(), -(time() + $expire), '/');
+
 $template->assign("my", $member);
 
 $template->display(get_template_filename());
